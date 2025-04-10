@@ -1,0 +1,32 @@
+CS 2080 Programming with Unix 
+Assignment #2
+
+1.	What is a Linux Distribution? In what ways is it different from a Linux kernel (5 points)
+A Linux Distribution, such as Ubuntu and Fedora, is a full-package operating system that is built around the Linux Kernel. So, a Linux Module is a vital piece of a Linux Distribution and is needed for the Linux Distribution to function. 
+The Linux Module is the main entity that facilitates communication between the OS (Linux Distribution) and the hardware of the system. That being said, the Linux Distribution is a stand-alone full-package operating system, and a Linux Module needs 
+additional software to form a full operating system, meaning it cannot stand alone. (Lecture Notes)
+2.	We learned that Linux is Unix-like, or more broadly, a Unix system. Based on this knowledge, name four different interprocess communication techniques available to a Linux user and describe at least one. (2 + 3 points)
+Four different interprocess communication techniques available to a Linux user are Pipes, Message Queues, Semaphores and Sockets. I feel as though Pipes would be the easiest to describe, so I’ll go ahead and describe Semaphores. The way I think of 
+Semaphores is almost like an above-average bathroom stall situation. If someone is using the stall, then the lock on the door says OCCUPIED, and if it is available, then the lock on the door says OPEN. So, Semaphores are a synchronization mechanism to 
+facilitate turn-based use of memory and resources by processes. To tie it to the previous bathroom stall example, think of the memory and resources as the bathroom stall. When the processes are using these resources, the other processes know that they 
+need to wait in order for the process to be finished using them in order to use them next, leading to a more organized allocation of all resources. (Lecture Notes)
+3.	Answer the following questions (5 points each): 
+a. Describe how an OS uses pages in virtual memory to extend the system's main memory. (In your answer, mention the use of page tables, process control blocks, and virtual address space and their role in this memory management) 
+b. We discussed shared memory as an IPC technique. What is the role of semaphore in a shared memory IPC? What are the problems with using shared memory without semaphores? 
+c. From a Linux command line, use pipes (|) to do the following and paste the outputs for each step in your submission (screenshots are Ok): i. Run command lsb_release -a ii. Pipe this output into a grep command and use grep to do the following: 
+grep “Distributor ID” iii. Next, pipe this output into a cat command.
+A: So, the main point behind Virtual Memory is to extend the address space (System’s main memory) available to the computer. The operating system is constantly juggling the system’s main memory and virtual memory to extend this addressable memory for processes. 
+The MMU (Memory Management Unit) works in tandem with the operating system to accomplish these tasks. Virtual address spaces are organized into fixed chunks of blocks called pages, whereas physical address spaces are organized into fixed chunks of blocks called 
+page frames. The OS stores the memory in pages first and then loads pages into the physical page frames and stores the current page frame in the disk. A page table is the data structure that maps these virtual pages to the physical page frames. It works somewhat 
+similarly to an index so that the MMU and OS can more easily keep track of associated blocks of memory. Process Control Blocks contain the processes’ stack, program data, the executable program, and information on resources available to them, such as related processes, 
+open files, and any supplemental information needed to run the program successfully. (Lecture Notes)
+B. Shared Memory is probably the fastest IPC as the OS maps a memory block to the address spaces of multiple processes, allowing them to read and write to a common memory. The role of a Semaphore in a Shared Memory IPC is to facilitate synchronized usage of memory and 
+resources by each process as not to overload a single resource and return unintended results. The way I think of it is, imagine a fast-food restaurant where 10+ people are at the counter all yelling their orders to two employees at once. The two employees could eventually 
+handle it; however, what if they serviced someone that has just gotten there while others may have been waiting there for a much longer time? Or, what if they’re taking a very complicated order when there is someone standing in line that just wants a soda? Well, processes 
+in a Shared Memory IPC work the exact same way. How are the processes supposed to know who’s turn it is to use the resources? All they see is an open door for what they need, and they will take it at their earliest convenience. Without the use of Semaphores in a Shared 
+Memory IPC, processes will utilize the common memory and resources even before a process with a higher precedence, returning less reliable results as multiple processes are just reading and writing to the same memory block at will in a fashion void of organization. With 
+the use of Semaphores in a Shared Memory IPC, processes will wait their turns and return more favorable results as an outcome. (Lecture Notes)
+C. 
+$ lsb_release -a | grep “Distributor ID”
+$ lsb_release -a | grep “Distributor ID” | cat
+I attached a screenshot of the lsb_release -a, grep, and cat command pipe steps in a separate file in the zip folder. (Lecture Notes and Linux Pocked Guide Essential Commands)
