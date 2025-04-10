@@ -1,0 +1,110 @@
+# Bash Scripting Assignment (Git introduction)
+touch bash_scripting.sh
+vim bash_scripting.sh
+# Paste everything below into bash_scripting.sh
+#/usr/bin/env bash
+#
+# Copyright (c) Vijay Banerjee 10-29-24
+# Copyright (c) Robert Gallegos 04/05/2025
+
+# Using variables
+variable_name="something"
+
+# Write the command to print this variable
+echo "$variable_name"
+
+# Now print the following using the variable
+# "Here is the value of the variable: something"
+echo "Here is the value of the variable: $variable_name"
+
+# Write the command to print the present working directory with the following
+# string
+# "I am currently in this directory: <name of the present working directory>"
+echo "I am currently in this directory: $(pwd)"
+
+# Pointing to another variable using !
+name="alice"
+someone=name
+
+# Print something using the variable someone instead of name, to print
+# "alice"
+echo "${!someone}"
+
+# Functions
+printit(){
+	echo "my name is $1" # Taking the first parameter passed
+	echo "Our names are $*" # Taking all parameters.
+}
+
+# Call the printit function
+printit alice bob
+
+# Conditional
+# Write a function called "cond_test" that takes two inputs
+# If the first input is similar to second input, it will print "hello"
+# else it will print "bye"
+cond_test(){
+	read -p "Enter the first input: " input1
+	read -p "Enter the second input: " input2
+	if [[ "$input1" == "$input2" ]]; then
+		echo "hello"
+	else
+		echo "bye"
+	fi
+}
+
+# Call cond_test function
+cond_test
+
+# Now write a function that prints two numbers on screen and takes an input. if
+# the input equals the sum of the two numbers, it prints "correct" else it
+# prints "incorrect"
+sum_numbers(){
+	local num1=7
+	local num2=6
+	echo "The two numbers are: $num1 and $num2"
+	read -p "Enter the sum of the two numbers: " user_input
+	if [[ $user_input -eq $((num1 + num2)) ]]; then
+		echo "correct"
+	else
+		echo "incorrect"
+	fi
+}
+
+# Call the sum_numbers function
+sum_numbers
+
+# Once done with it, use a while loop to write the previous function with an
+# infinite loop. This time, generate two random numbers and check if the
+# input sum is correct
+sum_numbers_random(){
+	while :
+	do
+		num1=$((RANDOM % 10 + 1))
+		num2=$((RANDOM % 10 + 1))
+		echo "The two numbers are: $num1 and $num2"
+		read -p "Enter the sum of the two numbers: " user_input
+		if [[ $user_input -eq $((num1 + num2)) ]]; then
+			echo "correct"
+		else
+			echo "incorrect"
+		fi
+	done
+}
+
+# Call the sum_numbers_random function
+sum_numbers_random
+Esc :wq
+# Test the bash script out with 
+bash bash_scripting.sh
+# It works! Let’s get things going with linking this to github repository.
+sudo apt update
+sudo apt install git -y
+git config –-global user.name “Robert Gallegos”
+git config –-global user.email “romex1322@gmail.com”
+git init
+git add bash_scripting.sh
+git commit -m “Initial comment: Add bash_scripting.sh”
+git remote add origin https://github.com/yourusername/my-bash-script.git
+git push -u origin master
+# I go into much more detail for each of the git steps in the Docker program example
