@@ -1,0 +1,214 @@
+Most popular file systems ext. 4 and XFS.
+Ext. 4 is the default file system for Ubuntu
+XFS is default for RedHat
+2 most common distributions are Ubuntu and Deviant(Respberry pi) or RedHat (Fedora Sectoss, IGL
+These only determine the default states of the Unix-Like OS
+$lsblk -f (See the file system type) 
+Main feature of ext 4 file system (Provide unlimited subfiles)
+	Better performance more suited towards a higher number of data transactions.
+	Limited smaller block sizes with unlimited subdirectories
+	If you have huge amounts of data to store, ext. 4 is your guy
+FS means File System
+XFS (More suitable when the data is large.
+	Bigger block sizes best for bigger batches of data
+	Better performance for higher size of file systems
+Ext. 4 would break these down into smaller chunks 
+Loop file systems are not real storage device file systems
+FAT (FAT32, VFAT) Is more suited towards low power devices like flash drives
+	Lacks a “Journal”
+	Shortened metadata to store data
+	FAT is actually very “slim” regarding metadata being used
+	“Journal File System” – There are intermediate states from data being written onto storage and data being created by the user side
+		As soon as you create a file, it doesn’t get written on the disk directly
+		In a Journal file system (EXT 4, XFS) there is a trace of the data on the disk in an intermediate stage 
+		This is needed to revert back to a safe state. It acts as a backup.
+		Performance tradeoff for more reliable storage
+Flash drives, sd cards (No Journal exists)
+Once they’re corrupted they’re basically gone for good
+Flash drives and sd cards aren’t very reliable
+Live installation (Live CD) – When we do not use a hard disk at all, rather we use a sd card/flash drive to run the entire OS. You do not have a hard disk, the storage device has the different partitions and different metadata.
+The founder of Linux went to Russia for a conference and when he came back, While he was distracted at a bar by a whore, they went into his hotel room, got ahold of his laptop, took it apart, and tried to recover the data from the hard disk. They didn’t get anything because he was using an encrypted live CD.
+Authenticator – Helps system understand who the person is
+Encryption – Keys are used to manipulate entire blocks of data
+	Example (Pick one block and XOR with the key) Logic gates are sometimes used for encryption
+Key – Random sequence of data 1’s and 0’s (Huge)
+Near impossible to decrypt (Takes supercomputer 52 years to decrypt 128 bit. We are now at 4k bits.
+Zero Knowledge Proof – When you don’t have to present physical data, the shadow of the data speaks for itself (Proofs, Car Sales, NFT signatures)
+Escrow came up regarding zero knowledge proofs.
+Social Engineering – Talking with people to gain important information like hacking
+Swap Partition – Mimic of the RAM – When virtual memory overflows, swap partition is a contingency plan, takes all the access data from the RAM into the disk.
+	Swap is slow but prevents loss of data.
+	Asynchronous operation
+	All possible due to the Journal 
+BASH
+$clear (Reset everything in Ubuntu but the first command line)
+Script – When multiple 
+Arrays - $some_arr=(“array” “array2” “array3” etct.)
+Loops – for i in ${some_arr[@]}; > do 
+	Echo ${i}
+	Ping ec2.us-${i}.amazonaws.com -c10 | awk ‘BEGIN(\{FS=”/”} {print $4}’; done
+Amazonaws.com -c5 | awk ‘/rtt/{print $4}’
+03/13/2025
+
+(F)(L)OSS
+	License
+		BSD License
+		GPL (V20)
+			GPL
+		Apache
+Hardware Abstraction Level – The actually subscript of hardware communication
+OSI Initiative – 
+Logical vs Physical:
+Logical 
+	Abstractions
+	Loop front
+	Image – Logical dump of binary data
+Physical
+	Manifestation on hardware
+	Physical partition 
+03/18/2025
+GNUplot for question 4 on assignment 2!!!
+Sudo apt install gnuplot
+Touch rtt.txt
+Vim rtt.txt
+I
+A 4.5
+B 5.5
+C 6.5
+gnuplot << EOF
+set boxwidth 0.5 
+set style fill solid
+plot “rtt.txt” using 1:2:xtic(1) with boxes
+Git Lecture
+Sudo apt install git
+Two endpoints are the server and the computer 
+	GitHub and computers
+GitHub is a commercial server and its different than Git
+Software in remote server known as Upstream, everyone who uses the downloaded software is known as the Downstream
+The Downstream has a copy of the Upstream’s Data
+
+Mkdir unix_textstream
+Cd unix_textstream
+La -la 
+.git
+git init
+touch testfile
+git status
+git log
+git config
+git diff
+git add filename
+git commit -am “testfile: Populate the file with example text”
+get log
+git show 
+git format-patch -1 (Creates a Patch File) (-1 is a reference from the HEAD)
+git rebase -i HEAD~2
+03/20/2025
+Script Lab Lecture 10
+$> chmod + x lecture_10.sh (Give execute permissions)
+$> ./lecture_10.sh (./ helps bash know where to look for file)
+$>Bash lecture_10.sh
+If we want to add the command into the path variable…
+$> export PATH=/path/to/lecture/: $ Path (Turns Session variable into Environment Variable)
+[ ] (Shell Expansion that returns true or false. Basically a Boolean evaluator)
+$> [ “$EUID” -ne 0 ] (ne means not equal)
+If and fi (fi stops the if block)
+$> exit (Exits the program early. Good for saving resources)
+$> sudo su (superuser do superuser)
+$> useradd (Adds a new user into the system)
+$> groupadd (Adds a new group into the system)
+$> chown alice alice_test (Change Owner/Assigned alice_test to alice) 
+$> chmod 640 (User, Group, Other. User has read and write permission and Group has read permission)
+$> sudo -u alice bash -c “echo hello from alice > alice_test” (This operation would be ran as Alice) 
+$> sudo -u bob bash -c “echo hello from bob > bob_test”
+$> sudo -u alice back -c “cat bob_test” (Alice will not be able to view this)
+
+ACL – Access Control List – Allows fine grain control over file’s access
+	You can add as many entities into the permission file as you want
+	Needs to be installed on Ubuntu $> sudo apt install acl
+$> usermod -a -G opensourceclub alice (Adding Alice to the Group)
+$> chgrp opensourceclub (Change group)
+$> getfacl opensource_confidential (Gives a list of who the group is)
+$> setfacl -m (Add people to the group/modify)
+	$> setfacl -m 
+
+Cleanup Script 
+Cleanup=0
+04/01
+Bash_scripting.sh assignment on canvas copy and paste to github repository and finish the tasks it asks.
+Shell expansion is one of the two biggest lessons to take away from this class. Needed in programming, software development, etc.
+Submit through github
+Setup
+$> mkdir assignments
+$>cd assignments
+$> git init
+$>git config user.name “Robert”
+$>git config user.emai rgalleg3@uccs.edu
+Additions
+$>git add
+$>git commit -m “filename: Add functions”
+Remote
+Go to github, create an account, create a new repository
+Get the link for the repository
+Git remote add blah <…> (This is where wo would put the link from the github repository
+Git fetch blah (Goes into that link to see metadata and sets up the current repository to track the remote one)
+Command Line
+$>git push main branch blah
+04/03
+Docker
+Two types of virtualization
+	Runs on the Hardware
+	Runs on top of a virtual system (Virtual Box) for some example
+System calls for virtualization are called hypercalls. This is facilitated by the hypervisor and does not go directly to the kernel.
+The con is that you need quite a bit of resources to make them possible. (File Systems, OS resources, etc.)
+Containerization – Somewhat of a subset of Virtualization
+	Provides isolated executions; however, we do not need to copy the whole system into its own memory space. Instead of running as entire operating systems, we have isolated processes and provide them with everything they need to run. Hypervisor not needed. 
+	Docker is a popular Containerization.
+The main idea behind using docker is to make it functional for everyone. It takes a snapshot of the system (vdi image – binary image), but instead of having a full virtualized image, it takes a script that captures the essential functionality of the system to make it able to execute on any system. It keeps people from using the phrase “Well, it works on my system”.
+Docker or Containerization is great for prototyping and even distribution.
+
+First step is to create a git repository or use the same git repository that we have right now.
+Daemon – The concept is it is a background process. It’s doing something in the background for you. Docker Daemon or Docker d.
+	In the background, there is a Docker d and in the application script, there is a docker file. We use the docker file to call the docker daemon using a bunch of docker commands.
+Question 1 extends the ubuntu image.
+From docker file	FROM ubuntu		Run ->config
+RUN apt install vim -y
+Run apt install nginx -y
+			COPY assignment.sh /bin	(This goes into the bin directory of the docker instance, not the host instance.) (Takes it from the EC2 instance and copies it into the docker file)
+			CMD chmod +x /bin/assignment.sh
+			CMD ./assignment.sh
+	docker image build mydockerimage
+	docker run mydockerimage –- network=host
+
+From the perspective of the docker, the host is the AWS system
+
+There are 3 layers. 
+-p 80:3000 (Connect port 80 on Docker to port 3000 on EC2 Instance) (Proxy)
+04/08
+sudo dmsg | grep docker (Organize to only show docker files)
+sudo dmsg | tail -n 15 (bottom 15 lines)
+sudo dmsg | head -n 15 (top 15 lines)
+git init
+git branch -m main
+git branch 
+git status
+git add .
+git status
+git commit -m ‘Add Dockerfile and example script;
+git config user.name Robert
+git config user.email romex1322@gmail.com
+git config user.name
+git config user.email
+git commit
+git log
+git –amend –author
+git commit –amend –author “Robert <romex1322@gmail.com
+git config –global core.editor “vim”
+git branch
+git log
+git show (Shows previous commits, additions, and subtractions to the repository)
+git diff (See the difference in the changes that were made)
+git commit -m ‘example.sh: Add verbose output’
+git log
+git show
+sit show -2 (Shows the last 2 commits)
