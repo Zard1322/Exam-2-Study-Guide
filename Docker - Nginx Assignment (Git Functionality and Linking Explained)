@@ -29,7 +29,8 @@ git config –-global user.email “romex1322@gmail.com
 git init 
 # git init will let you start tracking changes, create commits, branch off work, and push changes to your github repository online
 git add docker_inst.sh
-# If you add a .git<filename> at the end of the line above, it will prepare to create a folder in the git repository and place docker_inst.sh inside after commit. But as of right now, the line above just prepares the file to be included in the commit
+# If you add a .git<filename> at the end of the line above, it will prepare to create a folder in the git repository and place docker_inst.sh inside after commit. But as of right now, the line above 
+just prepares the file to be included in the commit
 git commit -m “Initial commit: add docker installation script”
 # Obviously adds a commit to the git repository. Actually records those changes in git’s history.
 mkdir docker-testing
@@ -106,7 +107,8 @@ sudo docker run -d –p 80:80 my-nginx-app
 # This maps port 80 of the container to port 80 on your EC2 instance
 # Use sudo docker ps to list all running containers 
 # If you see another container occupying a port you want to use for something else, you can sudo docker stop <container_id> You’ll find the container id as one of the elements in sudo docker ps
-# Now, add a rule to your AWS EC2 instance security group. Click on inbound rules. Ensure that there is an HTTP rule. If not, click edit inbound rules, click add rule, set type to HTTP, Protocol should be TCP, port range 80, and source should say 0.0.0.0/0.
+# Now, add a rule to your AWS EC2 instance security group. Click on inbound rules. Ensure that there is an HTTP rule. If not, click edit inbound rules, click add rule, set type to HTTP, Protocol 
+should be TCP, port range 80, and source should say 0.0.0.0/0.
 # Now, go to a separate web page and go to the url up top. Type http://Public IPv4 address
 # This will be the same address you use to ssh into the instance. From there, you should see all the fruits of your labor!
 
@@ -116,13 +118,18 @@ sudo docker run -d –p 80:80 my-nginx-app
 git remote add origin https://github.com/yourusername/my-bash-script.git
 git push -u origin master
 # Here, it will prompt you for a username. Use your GitHub account email address for this.
-# Now, it will prompt you for a password and this is where things may get a bit tricky. You have to go into your github account settings by clicking on your profile picture. Hit settings, then you go all the way down to developer settings at the bottom. 
-Go to personal access tokens. Hit Fine-grained tokens. Generate a new token. Make sure Repository access is all repositories, user permissions are available, and repository permissions are read access metadata and read and write access to code. Generate 
-the token and copy the link for your token. Paste this link back in the EC2 instance where it prompted you for a password. Keep in mind that once you paste this link it will still show blank on the EC2 instance. This is a security measure. Ignore that and 
-press enter and voila! Everything you committed should now be in that github repository. Refresh you Github page to confirm. On your github repository <> Code page, hit the green <> Code and snag that link that will be used as the assignment submission. 
+# Now, it will prompt you for a password and this is where things may get a bit tricky. You have to go into your github account settings by clicking on your profile picture. Hit settings, then you go all the 
+# way down to developer settings at the bottom. 
+# Go to personal access tokens. Hit Fine-grained tokens. Generate a new token. Make sure Repository access is all repositories, user permissions are available, and repository permissions are read access metadata 
+# and read and write access to code. Generate 
+# the token and copy the link for your token. Paste this link back in the EC2 instance where it prompted you for a password. Keep in mind that once you paste this link it will still show blank on the EC2 instance. 
+# This is a security measure. Ignore that and 
+# press enter and voila! Everything you committed should now be in that github repository. Refresh you Github page to confirm. On your github repository <> Code page, hit the green <> Code and snag that link that 
+# will be used as the assignment submission. 
 # To test this yourself you can go into any EC2 instance.
 sudo apt update
 sudo install git -y
 sudo git clone <The link that you used as your assignment submission>. 
 # You’ll notice that everything in the instance has been copied and pasted from the repository. ls and cd to see exactly where you’re at and go exploring!
-# If you ever need to see what changes are staged for commit, use git status	This will show you branch information, tracked files vs. untracked files, changes not staged for commit, as well as the changes staged for commit with git add
+# If you ever need to see what changes are staged for commit, use git status	This will show you branch information, tracked files vs. untracked files, changes not staged for commit, as well as the changes staged 
+# for commit with git add
