@@ -1,0 +1,128 @@
+# Docker – Nginx Assignment (git functionality included)
+# First, install docker
+touch docker_inst.sh
+vim docker_inst.sh
+# Paste code below into 
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+Esc :wq
+bash docker_inst.sh
+# Now, let’s start getting things set up with git
+sudo apt update
+sudo apt install git -y
+git config –-global user.name “Robert Gallegos”
+git config –-global user.email “romex1322@gmail.com
+# git config user.name or user.email command will show the current value of each argument
+git init 
+# git init will let you start tracking changes, create commits, branch off work, and push changes to your github repository online
+git add docker_inst.sh
+# If you add a .git<filename> at the end of the line above, it will prepare to create a folder in the git repository and place docker_inst.sh inside after commit. But as of right now, the line above just prepares the file to be included in the commit
+git commit -m “Initial commit: add docker installation script”
+# Obviously adds a commit to the git repository. Actually records those changes in git’s history.
+mkdir docker-testing
+cd docker-testing
+# Now we are in the docker-testing directory
+touch Dockerfile
+vim Dockerfile
+# a. i. Extend the Ubuntu image
+FROM ubuntu:latest
+
+# Turn off interactive prompts and update package info
+ENV DEBIAN_FRONTEND=noninteractive
+
+# a. ii. Update apt repository and install vim and nginx in the docker instance
+RUN apt-get update && apt-get install -y \
+        vim \
+        nginx \
+        && rm -rf /var/lib/apt/lists/*
+
+# a. iii. Copy app script from Docker context into the docker instance
+COPY app.sh /app.sh
+
+# Give app script executable permission
+RUN chmod +x /app.sh
+
+# Expose port 80 for web traffic
+EXPOSE 80
+
+# a. iv. Invoke the app script
+CMD ["bash", "/app.sh"]
+Esc :wq
+
+git add Dockerfile
+git commit -m “Add Dockerfile to extend Ubuntu image, install vim and nginx in the docker instance, copy app script from Docker context into the docker instance, and invoke the app script
+# Now, lets create the app.sh file 
+touch app.sh
+vim app.sh
+
+#!/usr/bin/env bash
+# Copyright (c) Robert Gallegos 04/08/2025
+# b. i. Start nginx service
+echo "starting nginx..."
+service nginx start
+
+# Give nginx a bit of time to start
+sleep 2
+
+# Prepare to modify all HTML files in /var/www/html/
+echo "Updating HTML files..."
+
+# b. ii. Use sed to replace "Welcome to nginx" with
+# "Welcome to <YOUR_FIRST_NAME>'s page" in /var/www/html/*.html
+# inside the docker instance
+sed -i 's/Welcome to nginx/Welcome to Robert\x27s page/g' /var/www/html/*.html
+# \x27 is just a shortcut for ‘	We used this as not to upset the syntax for the sed argument
+
+# b. iii. Use sed to replace all occurrences of "nginx" in the
+# same html file with "nginx (pronounced as EngineX)"
+sed -i 's/nginx/nginx (pronounced as EngineX)/g' /var/www/html/*.html
+
+# b. iv. Restart nginx service
+echo "Restarting nginx..."
+service nginx restart
+
+# Keep the container running indefinitely so changes can be viewed
+tail -f /dev/null
+Esc :wq
+
+git add app.sh
+git commit -m “Add app.sh to display nginx start, manipulation, restart
+sudo docker build -t my-nginx-app .
+# This builds the Docker container with your Dockerfile
+sudo docker run -d –p 80:80 my-nginx-app
+# This maps port 80 of the container to port 80 on your EC2 instance
+# Use sudo docker ps to list all running containers 
+# If you see another container occupying a port you want to use for something else, you can sudo docker stop <container_id> You’ll find the container id as one of the elements in sudo docker ps
+# Now, add a rule to your AWS EC2 instance security group. Click on inbound rules. Ensure that there is an HTTP rule. If not, click edit inbound rules, click add rule, set type to HTTP, Protocol should be TCP, port range 80, and source should say 0.0.0.0/0.
+# Now, go to a separate web page and go to the url up top. Type http://Public IPv4 address
+# This will be the same address you use to ssh into the instance. From there, you should see all the fruits of your labor!
+
+# Alright, now to link everything to your github repository online 
+# First, create the github repository in your online account and make it public
+# Then, grab the link, for your repository and paste it in place of the link below
+git remote add origin https://github.com/yourusername/my-bash-script.git
+git push -u origin master
+# Here, it will prompt you for a username. Use your GitHub account email address for this.
+# Now, it will prompt you for a password and this is where things may get a bit tricky. You have to go into your github account settings by clicking on your profile picture. Hit settings, then you go all the way down to developer settings at the bottom. 
+Go to personal access tokens. Hit Fine-grained tokens. Generate a new token. Make sure Repository access is all repositories, user permissions are available, and repository permissions are read access metadata and read and write access to code. Generate 
+the token and copy the link for your token. Paste this link back in the EC2 instance where it prompted you for a password. Keep in mind that once you paste this link it will still show blank on the EC2 instance. This is a security measure. Ignore that and 
+press enter and voila! Everything you committed should now be in that github repository. Refresh you Github page to confirm. On your github repository <> Code page, hit the green <> Code and snag that link that will be used as the assignment submission. 
+# To test this yourself you can go into any EC2 instance.
+sudo apt update
+sudo install git -y
+sudo git clone <The link that you used as your assignment submission>. 
+# You’ll notice that everything in the instance has been copied and pasted from the repository. ls and cd to see exactly where you’re at and go exploring!
+# If you ever need to see what changes are staged for commit, use git status	This will show you branch information, tracked files vs. untracked files, changes not staged for commit, as well as the changes staged for commit with git add
