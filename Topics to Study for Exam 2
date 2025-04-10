@@ -1,0 +1,30 @@
+Topics to Study for Exam 2
+
+Boiler plates 
+shebang
+Copyright
+Ping related stuff
+Sed
+Awk
+If else statements
+Functions 
+User permissions 
+Files
+File operation
+Chown 
+Chmod
+For loop and while loop
+Find the average ping and plug it using a new plug
+Create a new file system xfs (use the dd command mount it to a partition) be careful with directory permissions!
+Create it from one user and assign it to another user (get facl)
+1st user has a permission, 2nd user has another, 3rd user has the other
+Bonus question – file system benchmarking. Uses iozone. Implement an xfs and ext 4 and then compare them together.
+Practice sudo allowing one user to do something code based for another user
+Group management
+Account management
+Stream editing
+Grep 
+Rtt question is 100 points (7 part question)
+GNU Plot attachment needs to be uploaded
+Use sudo command
+For rtt, to print ping status into it’s own separate file, use the tail command and pipeline it into another file.
